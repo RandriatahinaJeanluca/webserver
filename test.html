@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client 1</title>
+</head>
+<body> 
+    <h1>Contrôle de l'ESP32</h1>
+    <button id="sendButtonon">Allumer</button>
+    <button id="sendButtonoff">Enteint</button>
+
+    <script>
+        const sendButtonOn = document.getElementById('sendButtonon');
+        const sendButtonOff = document.getElementById('sendButtonoff');
+        sendButtonOn.addEventListener('click', () => {
+            // Préparer les données JSON à envoyer
+
+            // Envoyer la requête POST au serveur
+            fetch('http://localhost:80/send', { // Remplacez par l'adresse IP de votre serveur Express
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // En-tête pour indiquer que les données sont en JSON
+                },
+                body: JSON.stringify({'message':'allume'}), // Convertir l'objet `data` en chaîne JSON
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Réponse du serveur :', data);
+                    console.log('Commande on envoyée avec succès !');
+                })
+                .catch(error => {
+                    console.error('Erreur lors de l\'envoi de la commande :', error);
+                    alert('Erreur lors de l\'envoi de la commande.');
+                });
+        });
+        sendButtonOff.addEventListener('click', () => {
+            // Préparer les données JSON à envoyer
+
+            // Envoyer la requête POST au serveur
+            fetch('http://localhost:80/send', { // Remplacez par l'adresse IP de votre serveur Express
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // En-tête pour indiquer que les données sont en JSON
+                },
+                body: JSON.stringify({'message':'enteint'}), // Convertir l'objet `data` en chaîne JSON
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Réponse du serveur :', data);
+                    console.log('Commande off envoyée avec succès !');
+                })
+                .catch(error => {
+                    console.error('Erreur lors de l\'envoi de la commande :', error);
+                    console.log('Erreur lors de l\'envoi de la commande.');
+                });
+        });
+    </script>
+</body>
+</html>
