@@ -8,12 +8,12 @@ const port = 80;
 app.use(express.json());
 app.use(cors());
 // Adresse IP de l'ESP32 (à modifier selon votre configuration)
-const esp32IP = "192.168.43.142";
+
 
 // Fonction pour envoyer une requête POST à l'ESP32
 async function sendCommandToESP32(command) {
     try {
-        const response = await axios.post(`http://192.168.43.142/esp`, {
+        const response = await axios.post(`/esp`, {
             message: command,
         });
 
